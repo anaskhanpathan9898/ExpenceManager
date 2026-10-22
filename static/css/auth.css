@@ -1,0 +1,43 @@
+/* ==========================================================================
+   auth.css — Login and Register pages
+   ========================================================================== */
+
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid var(--clr-border);
+}
+
+.auth-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.3rem;
+  color: var(--clr-text);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--clr-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+}

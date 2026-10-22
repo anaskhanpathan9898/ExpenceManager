@@ -1,0 +1,99 @@
+/* ==========================================================================
+   responsive.css — Mobile-first breakpoints
+   All other CSS files use desktop-first; this file corrects for small screens.
+   ========================================================================== */
+
+/* ---------- Tablet and below (< 900px) ---------- */
+@media (max-width: 900px) {
+
+  /* Charts side by side → stacked */
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Summary cards 3-col → 1-col */
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Budget form row → stacked */
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-group-action label { display: none; }
+}
+
+/* ---------- Mobile (< 640px) ---------- */
+@media (max-width: 640px) {
+
+  /* Hamburger menu */
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--clr-nav);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 1rem 1rem;
+    gap: 0.25rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,.25);
+    z-index: 999;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a,
+  .btn-logout {
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-sm);
+    text-align: left;
+  }
+
+  .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* Main content padding */
+  .main-content { padding: 1.25rem 1rem; }
+
+  /* Page header stacked */
+  .page-header { flex-direction: column; align-items: flex-start; }
+
+  /* Card value smaller */
+  .card-value { font-size: 1.25rem; }
+
+  /* Filter row stacked */
+  .filter-row { flex-direction: column; }
+  .filter-group { min-width: unset; }
+
+  /* Auth card full-width */
+  .auth-card { padding: 1.75rem 1.25rem; }
+
+  /* Table scroll hint */
+  .table-wrapper { border-radius: var(--radius-sm); }
+
+  /* Budget item header stacked */
+  .budget-item-header { flex-direction: column; align-items: flex-start; }
+
+  /* Radio group stacked */
+  .radio-group { flex-direction: column; }
+
+  /* Form actions stacked */
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; justify-content: center; }
+
+  /* Flash messages full width on mobile */
+  .flash-container {
+    right: 0.75rem;
+    left: 0.75rem;
+    max-width: unset;
+  }
+
+  /* Chart height smaller on mobile */
+  .chart-wrapper { height: 200px; }
+}

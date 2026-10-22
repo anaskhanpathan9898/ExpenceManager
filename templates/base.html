@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Expense Tracker{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}" />
+
+  <!-- Base styles loaded on every page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}" />
+  {% block extra_css %}{% endblock %}
+
+  <!-- Chart.js — only loaded on pages that need it -->
+  {% block head_scripts %}{% endblock %}
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="{{ url_for('dashboard.index') }}">💰 ExpenseTracker</a>
+    </div>
+
+    <!-- Hamburger button (visible only on mobile) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('dashboard.index') }}"
+               class="{{ 'active' if request.endpoint == 'dashboard.index' }}">Dashboard</a></li>
+        <li><a href="{{ url_for('transactions.list_transactions') }}"
+               class="{{ 'active' if 'transactions' in request.endpoint }}">Transactions</a></li>
+        <li><a href="{{ url_for('budget.index') }}"
+               class="{{ 'active' if 'budget' in request.endpoint }}">Budget</a></li>
+        <li class="nav-user">👤 {{ current_user.username }}</li>
+        <li><a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a></li>
+      {% else %}
+        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- ===================== FLASH MESSAGES ===================== -->
+  <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">
+            <span>{{ message }}</span>
+            <button class="flash-close" onclick="this.parentElement.remove()">✕</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p>Expense Tracker &copy; 2026 — College Project</p>
+  </footer>
+
+  <!-- Base JS: navbar toggle + auto-dismiss flash messages -->
+  <script>
+    // Hamburger menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        navToggle.classList.toggle('active');
+      });
+    }
+
+    // Auto-dismiss flash messages after 4 seconds
+    setTimeout(() => {
+      document.querySelectorAll('.flash').forEach(el => el.remove());
+    }, 4000);
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
